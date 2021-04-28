@@ -1,5 +1,8 @@
 const express = require ('express')
 const dotenv = require ('dotenv')
+// const logger = require ('./middleware/logger')
+const morgan = require('morgan')
+
 
 /**import routes */
 
@@ -11,6 +14,9 @@ dotenv.config({path:'./config/config.env'})
 
 const app = express();
 
+if(process.env.NODE_ENV === 'development'){
+    app.use(morgan('dev'));
+}
 /**mount router to specific ur; */
 
 app.use('/api/v1/bootcamps', bootcamps);

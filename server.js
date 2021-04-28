@@ -3,6 +3,7 @@ const dotenv = require ('dotenv')
 // const logger = require ('./middleware/logger')
 const morgan = require('morgan')
 const connectDB = require('./config/db')
+const colors = require('colors')
 
 
 /**import routes */
@@ -30,11 +31,11 @@ app.use('/api/v1/bootcamps', bootcamps);
 
 const PORT = process.env.PORT || 5000
 
-const server= app.listen(PORT, console.log(`server running in ${process.env.NODE_ENV} mode on port ${PORT}`));
+const server= app.listen(PORT, console.log(`server running in ${process.env.NODE_ENV} mode on port ${PORT}`.blue.bold));
 
 /**handle unhandled rejections promise rejections */
 process.on('unhandledRejection', (err, promise)=>{
-    console.log(`Error:${err.message}`);
+    console.log(`Error:${err.message}`.red);
 
     /**close and exit */
     server.close(()=> process.exit(1));

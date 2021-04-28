@@ -31,7 +31,7 @@ exports.getBootcamp = async (req,res,next)=>{
         const bootcamp = await Bootcamp.findById(req.params.id)
 
         if(!bootcamp){
-            return  res.status(400).json({success:false});
+             return res.status(400).json({success:false});
         }
         
         res.status(200).json({
@@ -46,8 +46,6 @@ exports.getBootcamp = async (req,res,next)=>{
         })
         
     }
-    res.status(200).json({success:true, msg:`get bootcamp ${req.params.id}`});
-
 }
 //@ desc    get bootcamp
 // route    GET api/v1/bootcamps
@@ -76,15 +74,62 @@ exports.createBootcamp = async (req,res,next)=>{
 // route    GET api/v1/bootcamps/:id
 //access     private
 
-exports.updateBootcamp = (req,res,next)=>{
-    res.status(200).json({success:true, msg:`update bootcamp  ${req.params.id}`});
+exports.updateBootcamp = async  (req,res,next)=>{
+  
+       
+        try {
+            const bootcamp = await Bootcamp.findByIdAndUpdate(req.params.id, req.body,{
+                new: true,
+                runValidators: true
+            });
+            if(!bootcamp){
+                return res.status(400).json({
+                    success: false
+                    })
+                    
+            }
+            res.status(200).json({
+                success: true,
+                data: bootcamp
+                })
+        } catch (error) {
+            res.status(200).json({
+                success: true,
+                data: bootcamp
+                })
+        }
+
+        
+   
+        
+    
+    
 
 }
 //@ desc    get bootcamp
 // route    GET api/v1/bootcamps/:1
 //access     private
 
-exports.deleteBootcamp = (req,res,next)=>{
-    res.status(200).json({success:true, msg:`delete bootcamp ${req.params.id}`});
+exports.deleteBootcamp =  async (req,res,next)=>{
+   
+    try {
+        const bootcamp = await Bootcamp.findByIdAndDelete(req.params.id);
+        if(!bootcamp){
+            return res.status(400).json({
+                success: false
+                })
+                
+        }
+        res.status(200).json({
+            success: true,
+            data: {}
+            })
+    } catch (error) {
+        res.status(200).json({
+            success: true,
+            data: {}
+            })
+    }
+
 
 }

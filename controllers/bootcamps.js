@@ -24,7 +24,7 @@ exports.getBootcamps =  async (req,res,next)=>{
 }
 //@ desc    get bootcamp
 // route    GET api/v1/bootcamps/:id
-//access     public
+//access     public    
 
 exports.getBootcamp = async (req,res,next)=>{
     try {
@@ -125,8 +125,8 @@ exports.deleteBootcamp =  async (req,res,next)=>{
             data: {}
             })
     } catch (error) {
-        res.status(200).json({
-            success: true,
+        res.status(400).json({
+            success: false,
             data: {}
             })
     }
